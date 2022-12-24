@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Crear tarea | {% endblock title %}
+    
+
+{% block content %}
+    <form method="post" class="mt-5">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Crear tarea" class="btn btn-primary col-12">
+    </form>
+{% endblock content %}
+    

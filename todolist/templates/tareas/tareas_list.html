@@ -1,0 +1,51 @@
+{% extends 'base.html '%}
+
+{% block content %}
+<!-- Botones -->
+<nav class="navbar bg-light mt-5">
+    <div class="my-4 container-fluid col-12">
+    <form class="d-flex mt-3" method="GET">
+        {% csrf_token %}
+        <input class="form-control me-2 col-sm-12" type="text" id="kword" name="kword" placeholder="Buscar" aria-label="Buscar">
+        <button class="btn btn-success mx-3 col-md-3 col-sm-12" type="submit">Buscar</button>
+    </form>
+        <a href="{% url 'create' %}" class="text-white btn btn-primary col-md-4 col-sm-12 mt-3" style="text-decoration: none;">Agregar tarea</a>
+    </div>
+</nav>
+
+<table class="table table-striped col-sm-12 col-md-4 mt-5">
+    <thead class="table-dark">
+        <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for i in object_list %}
+        
+        {% if i.completed == True %}
+            <tr>
+                <td class="border border-dark"><del>{{ i.name }}</del></td>
+                <td class="border border-dark"><del>{{ i.description }}</del></td>
+                <td class="border border-dark">
+                    <a href="{% url 'update' i.id %}" class="text-white btn btn-warning mb-1" style="text-decoration: none;">Editar tarea</a>
+                    <a href="{% url 'delete' i.id %}" class="text-white btn btn-danger" style="text-decoration: none;">Eliminar tarea</a>
+                </td>
+            </tr>
+        {% else %} 
+        <tr>
+            <td class="border border-dark">{{ i.name }}</td>
+            <td class="border border-dark">{{ i.description }}</td>
+            <td class="border border-dark">
+                <a href="{% url 'update' i.id %}" class="text-white btn btn-warning mb-1" style="text-decoration: none;">Editar tarea</a>
+                <a href="{% url 'delete' i.id %}" class="text-white btn btn-danger" style="text-decoration: none;">Eliminar tarea</a>
+            </td>
+        </tr>           
+        {% endif %}
+        
+{% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
+    
